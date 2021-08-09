@@ -1,9 +1,49 @@
+$screen-md: 769px;
+$screen-sm: 480px;
+$bp-list: (
+ sm: screen and (max-width: #{$screen-sm}),
+ md: screen and (min-width: #{$screen-sm},max-width: #{$screen-md}),
+ lg: screen and (min-width: #{$screen-md}),
+) !default;
+@mixin screen-mq($screen-size:"sm") {
+  @if $screen-size == "sm" {
+    @media screen and (max-width: #{$screen-sm}) {
+      @content;
+     }
+  }
+
+  @else if $screen-size == "md" {
+    @media screen and (min-width: #{$screen-sm}) and (max-width: #{$screen-md}) {
+      @content;
+     }
+  }
+
+  @else if $screen-size == "sm-md" {
+    @media screen and (max-width: #{$screen-md})  {
+      @content;
+     }
+  }
+
+  @else if $screen-size == "md-lg" {
+    @media screen and (min-width: #{$screen-sm})  {
+      @content;
+     }
+  }
+
+  @else {
+    @media screen and (min-width: #{$screen-md}) {
+      @content;
+     }
+  }
+}
+
+
 // Body
 $body-bg: #f8fafc;
 
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
-$font-size-base: 0.9rem;
+$font-family-sans-serif: 'Noto Sans JP','Nunito', sans-serif;
+$font-size-base: 1.6rem;
 $line-height-base: 1.6;
 
 // Colors
@@ -17,3 +57,49 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+//  Layout
+
+html{font-size: 62.5%;}
+body{
+    font-size: 1.6rem;
+    font-family: 'Noto Sans JP','Nunito', sans-serif;
+}
+
+input,textarea{
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+$header-height:6rem;
+
+header{
+    z-index: 10;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: $header-height;
+}
+
+aside{
+    z-index: 9;
+    position: fixed;
+    top: $header-height;
+    left: 0;
+    bottom:0;
+
+    width: 10rem;
+}
+
+main{
+    z-index: 0;
+    position: relative;
+
+    width: 100%;
+
+    padding-top: $header-height;
+    padding-bottom: 10rem;
+}
+

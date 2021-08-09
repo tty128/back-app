@@ -1,0 +1,171 @@
+// color
+$color0:rgb(245, 237, 226);
+$color1:rgb(247, 185, 70);
+$color2:rgb(134, 118, 100);
+$color3:rgb(190, 112, 10);
+
+// tx_colorClass
+.tx_color0{color:$color0 !important;}
+.tx_color1{color:$color1 !important;}
+.tx_color2{color:$color2 !important;}
+.tx_color3{color:$color3 !important;}
+
+
+// サイズ
+$split-grid: 12;
+$grid: 100vw / $split-grid;
+$ratio-height: 100vw * 9 / 16 / $split-grid; //16:9を維持するだけのheight
+
+@mixin grid-points($width:0,$grid-point:0,$direction:"l") {
+  @if $width == 0 {
+    @if $direction == "l" {
+      left:$grid*$grid-point;
+    }
+    @else if $direction == "r" {
+      right:$grid*$grid-point;
+    }
+    @else {}
+  }
+
+  @else {
+    @if $width >= $split-grid {
+    width:100%;
+    }
+    @else {
+      width:$width*$grid;
+    }
+
+    @if $direction == "l" {
+
+      left:$grid*$grid-point;
+    }
+    @else if $direction == "r" {
+      right:$grid*$grid-point;
+    }
+    @else {}
+  }
+}
+
+@mixin ratio-height($height:0,$grid-point:0,$direction:"t") {
+  @if $height = 0 {
+    @if $direction == "t" {
+      top:$ratio-height*$grid-point;
+    }
+    @else {}
+  }
+
+  @else {
+    height:$ratio-height*$height;
+    @if $direction == "t" {
+      top:$ratio-height*$grid-point;
+    }
+
+    @else {}
+  }
+}
+
+
+$font-size-small:1.2rem;
+$font-size-nomal:1.6rem;
+$font-size-large:2rem;
+$font-size-sp:3.2rem;
+$font-size-logo:3vw;
+$font-size-logo-sm:4.5vw;
+$font-size-logo-md:3.7vw;
+$font-size-eyecatch:5vw;
+$font-size-eyecatch-sm:9vw;
+$font-size-eyecatch-md:7vw;
+
+// 引数
+@mixin absolute($top:null, $right:null, $bottom:null, $left:null){
+    position: absolute;
+    @if $top != null{
+      top: $top;
+    }
+    @if $right != null{
+      right: $right;
+    }
+    @if $bottom != null{
+      bottom: $bottom;
+    }
+    @if $left != null{
+      left: $left;
+    }
+}
+
+@mixin flex($justify-content: space-around,$align-items: center) {
+    display: flex;
+    justify-content: $justify-content;
+    align-items: $align-items;
+}
+
+@mixin transform-center {
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+@mixin transform-y-center {
+    transform: translate(0, -50%);
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+}
+
+@mixin transform-y-center-r {
+  transform: translate(-100%, -50%);
+  -webkit-transform: translate(-100%, -50%);
+  -ms-transform: translate(-100%, -50%);
+}
+
+@mixin transform-x-center {
+    transform: translate(-50%, 0);
+    -webkit-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+}
+
+$screen-md: 769px;
+$screen-sm: 480px;
+$bp-list: (
+ sm: screen and (max-width: #{$screen-sm}),
+ md: screen and (min-width: #{$screen-sm},max-width: #{$screen-md}),
+ lg: screen and (min-width: #{$screen-md}),
+) !default;
+@mixin screen-mq($screen-size:"sm") {
+  @if $screen-size == "sm" {
+    @media screen and (max-width: #{$screen-sm}) {
+      @content;
+     }
+  }
+
+  @else if $screen-size == "md" {
+    @media screen and (min-width: #{$screen-sm}) and (max-width: #{$screen-md}) {
+      @content;
+     }
+  }
+
+  @else if $screen-size == "sm-md" {
+    @media screen and (max-width: #{$screen-md})  {
+      @content;
+     }
+  }
+
+  @else if $screen-size == "md-lg" {
+    @media screen and (min-width: #{$screen-sm})  {
+      @content;
+     }
+  }
+
+  @else {
+    @media screen and (min-width: #{$screen-md}) {
+      @content;
+     }
+  }
+}
+
+
+// UI
+.pc{
+  &--none{display: none;}
+  &--display{display: block;}
+  &--inline{display: inline;}
+}

@@ -11,14 +11,30 @@
 |
 */
 
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+*/
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' =>'', 'middleware' => ['auth']],function () {
+    Route::get('{any?}', function() {
+        $post = app()->make('App\Http\Controllers\PostController')->
+                index(
+                    app()->make('\Illuminate\Http\Request'),
+                    app()->make('App\Post')
+                );
+        $term = app()->make('App\Http\Controllers\TermController')->
+                index(
+                    app()->make('App\Term')
+                );
+        return view('manage', compact('post', 'term'));
+    })->where('any', '.*');
+});
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get(
+//     '{uri}',
+//     '\\' . Pallares\LaravelNuxt\Controllers\NuxtController::class
+// )->where('uri', '.*');
